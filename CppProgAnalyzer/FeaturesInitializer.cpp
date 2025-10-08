@@ -322,5 +322,71 @@ map<string, CppFeature> createAllCppFeatures()
 	feature_unique_ptr.type = CoreLanguageFeature;
 	features.insert({ "unique_ptr", feature_unique_ptr });
 
+
+	// https://www.en.cppreference.com/w/cpp/14.html
+	// core language features of C++14
+	CppFeature feature_generic_lambda;
+	feature_generic_lambda.regex = R"([=,(]\s*\[\s*[\w\s&=,]*\]\s*\(.*auto.*\)\s*(mutable\s*)?(->\s*[^ \{]+)?\s*\{)";
+	feature_generic_lambda.version = Cpp14;
+	feature_generic_lambda.type = CoreLanguageFeature;
+	features.insert({ "generic lambda", feature_generic_lambda });
+
+	CppFeature feature_digit_separator;
+	feature_digit_separator.regex = R"(\d{1}'\d{1})";
+	feature_digit_separator.version = Cpp14;
+	feature_digit_separator.type = CoreLanguageFeature;
+	features.insert({ "digit separator", feature_digit_separator });
+
+	CppFeature feature_binary_literal;
+	feature_binary_literal.regex = R"(0[bB][01]{2})";
+	feature_binary_literal.version = Cpp14;
+	feature_binary_literal.type = CoreLanguageFeature;
+	features.insert({ "binary literal", feature_binary_literal });
+
+	CppFeature feature_decltype_auto;
+	feature_decltype_auto.regex = R"(\bdecltype\s*\(\s*auto\s*\))";
+	feature_decltype_auto.version = Cpp14;
+	feature_decltype_auto.type = CoreLanguageFeature;
+	features.insert({ "decltype(auto)", feature_decltype_auto });
+
+	CppFeature feature_deprecated_attribite;
+	feature_deprecated_attribite.regex = R"(\[\s*\[\s*deprecated.*\]\s*\])";
+	feature_deprecated_attribite.version = Cpp14;
+	feature_deprecated_attribite.type = CoreLanguageFeature;
+	features.insert({ "deprecated attribute", feature_deprecated_attribite });	
+
+
+	// standard library features of C++14
+	CppFeature feature_make_unique;
+	feature_make_unique.regex = R"(make_unique)";
+	feature_make_unique.version = Cpp14;
+	feature_make_unique.type = StandardLibrary;
+	features.insert({ "make_unique", feature_make_unique });
+
+	CppFeature feature_integer_sequence;
+	feature_integer_sequence.regex = R"(integer_sequence)";
+	feature_integer_sequence.version = Cpp14;
+	feature_integer_sequence.type = StandardLibrary;
+	features.insert({ "integer_sequence", feature_integer_sequence });
+
+	CppFeature feature_exchange;
+	feature_exchange.regex = R"(std::exchange)";
+	feature_exchange.version = Cpp14;
+	feature_exchange.type = StandardLibrary;
+	features.insert({ "exchange", feature_exchange });
+
+	CppFeature feature_quoted;
+	feature_quoted.regex = R"(std::quoted)";
+	feature_quoted.version = Cpp14;
+	feature_quoted.type = StandardLibrary;
+	features.insert({ "quoted", feature_quoted });
+
+	// headers of C++14
+	CppFeature shared_mutex;
+	shared_mutex.regex = R"(#[ \t]*include[ \t]*<[ \t]*shared_mutex[ \t]*>)";
+	shared_mutex.version = Cpp14;
+	shared_mutex.type = Header;
+	features.insert({ "shared_mutex", shared_mutex });
+
 	return features;
 }

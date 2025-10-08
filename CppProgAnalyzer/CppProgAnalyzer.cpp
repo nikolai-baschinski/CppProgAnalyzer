@@ -280,8 +280,47 @@ void analisefileContent(string fileContent, map<string, CppFeature>& features)
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
 
+	// C++14
+	feature = &features["generic lambda"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
+	feature = &features["digit separator"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 	
+	feature = &features["binary literal"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["decltype(auto)"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["deprecated attribute"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["make_unique"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+	
+	feature = &features["integer_sequence"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["exchange"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["quoted"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["shared_mutex"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
 
 
 
@@ -410,6 +449,25 @@ int wmain(int argc, wchar_t* argv[])
 	cout << endl << "C++11 core langauge features:" << endl;
 	for (const auto& pair : features) {
 		if (pair.second.version == CppVersion::Cpp11 && pair.second.type == CppFeatureType::CoreLanguageFeature) {
+			cout << pair.first << ": " << pair.second.cntr << endl;
+		}
+	}
+
+	cout << endl << "C++14 headers:" << endl;
+	for (const auto& pair : features) {
+		if (pair.second.version == CppVersion::Cpp14 && pair.second.type == CppFeatureType::Header) {
+			cout << pair.first << ": " << pair.second.cntr << endl;
+		}
+	}
+	cout << endl << "C++14 core langauge features:" << endl;
+	for (const auto& pair : features) {
+		if (pair.second.version == CppVersion::Cpp14 && pair.second.type == CppFeatureType::CoreLanguageFeature) {
+			cout << pair.first << ": " << pair.second.cntr << endl;
+		}
+	}
+	cout << endl << "C++14 standard library features:" << endl;
+	for (const auto& pair : features) {
+		if (pair.second.version == CppVersion::Cpp14 && pair.second.type == CppFeatureType::StandardLibrary) {
 			cout << pair.first << ": " << pair.second.cntr << endl;
 		}
 	}

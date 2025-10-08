@@ -6,7 +6,8 @@ using namespace std;
 
 enum CppFeatureType {
 	Header,
-	CoreLanguageFeature
+	CoreLanguageFeature,
+	StandardLibrary
 };
 
 enum CppVersion {
