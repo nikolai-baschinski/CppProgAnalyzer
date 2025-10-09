@@ -321,31 +321,43 @@ void analisefileContent(string fileContent, map<string, CppFeature>& features)
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
+	// C++17
+	feature = &features["any"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+	
+	feature = &features["charconv"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
+	feature = &features["execution"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
+	feature = &features["filesystem"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
+	feature = &features["memory_resource"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
-	// Structured Bindings
-	//found = fileContent.find("auto", 0);
-	//if (found != string::npos) {
-	//	string sub_fileContent = fileContent.substr(found + 4, fileContent.length() - 4);
-	//	Trim::trim(sub_fileContent, " ");
-	//	if (sub_fileContent.at(0) == '[') {
-	//		res.numbStructuredBindings++;
-	//	}
-	//}
+	feature = &features["optional"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
-	if (fileContent.find("::variant") != string::npos) {
-		//res.numbVariant++;
-	}
+	feature = &features["string_view"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
-	if (fileContent.find("::any") != string::npos) {
-		//res.numbAny++;
-	}
+	feature = &features["variant"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
-	if (fileContent.find("::optional") != string::npos) {
-		//res.numbOptional++;
-	}
+	feature = &features["structured bindings"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
 }
 
 int wmain(int argc, wchar_t* argv[])
@@ -471,6 +483,26 @@ int wmain(int argc, wchar_t* argv[])
 			cout << pair.first << ": " << pair.second.cntr << endl;
 		}
 	}
+
+	cout << endl << "C++17 headers:" << endl;
+	for (const auto& pair : features) {
+		if (pair.second.version == CppVersion::Cpp17 && pair.second.type == CppFeatureType::Header) {
+			cout << pair.first << ": " << pair.second.cntr << endl;
+		}
+	}
+	cout << endl << "C++17 core langauge features:" << endl;
+	for (const auto& pair : features) {
+		if (pair.second.version == CppVersion::Cpp17 && pair.second.type == CppFeatureType::CoreLanguageFeature) {
+			cout << pair.first << ": " << pair.second.cntr << endl;
+		}
+	}
+	cout << endl << "C++17 standard library features:" << endl;
+	for (const auto& pair : features) {
+		if (pair.second.version == CppVersion::Cpp17 && pair.second.type == CppFeatureType::StandardLibrary) {
+			cout << pair.first << ": " << pair.second.cntr << endl;
+		}
+	}
+
 
 	return 0;
 }

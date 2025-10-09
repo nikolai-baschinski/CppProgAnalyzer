@@ -382,11 +382,68 @@ map<string, CppFeature> createAllCppFeatures()
 	features.insert({ "quoted", feature_quoted });
 
 	// headers of C++14
-	CppFeature shared_mutex;
-	shared_mutex.regex = R"(#[ \t]*include[ \t]*<[ \t]*shared_mutex[ \t]*>)";
-	shared_mutex.version = CppVersion::Cpp14;
-	shared_mutex.type = CppFeatureType::Header;
-	features.insert({ "shared_mutex", shared_mutex });
+	CppFeature feature_shared_mutex;
+	feature_shared_mutex.regex = R"(#[ \t]*include[ \t]*<[ \t]*shared_mutex[ \t]*>)";
+	feature_shared_mutex.version = CppVersion::Cpp14;
+	feature_shared_mutex.type = CppFeatureType::Header;
+	features.insert({ "shared_mutex", feature_shared_mutex });
+
+	// https://en.cppreference.com/w/cpp/17.html
+	// headers of C++17
+	CppFeature header_any;
+	header_any.regex = R"(#\s*include\s*<\s*any\s*>)";
+	header_any.version = CppVersion::Cpp17;
+	header_any.type = CppFeatureType::Header;
+	features.insert({ "any", header_any });
+
+	CppFeature header_charconv;
+	header_charconv.regex = R"(#\s*include\s*<\s*charconv\s*>)";
+	header_charconv.version = CppVersion::Cpp17;
+	header_charconv.type = CppFeatureType::Header;
+	features.insert({ "charconv", header_charconv });
+
+	CppFeature header_execution;
+	header_execution.regex = R"(#\s*include\s*<\s*execution\s*>)";
+	header_execution.version = CppVersion::Cpp17;
+	header_execution.type = CppFeatureType::Header;
+	features.insert({ "execution", header_execution });
+
+	CppFeature header_filesystem;
+	header_filesystem.regex = R"(#\s*include\s*<\s*filesystem\s*>)";
+	header_filesystem.version = CppVersion::Cpp17;
+	header_filesystem.type = CppFeatureType::Header;
+	features.insert({ "filesystem", header_filesystem });
+
+	CppFeature header_memory_resource;
+	header_memory_resource.regex = R"(#\s*include\s*<\s*memory_resource\s*>)";
+	header_memory_resource.version = CppVersion::Cpp17;
+	header_memory_resource.type = CppFeatureType::Header;
+	features.insert({ "memory_resource", header_memory_resource });
+
+	CppFeature header_optional;
+	header_optional.regex = R"(#\s*include\s*<\s*optional\s*>)";
+	header_optional.version = CppVersion::Cpp17;
+	header_optional.type = CppFeatureType::Header;
+	features.insert({ "optional", header_optional });
+
+	CppFeature header_string_view;
+	header_string_view.regex = R"(#\s*include\s*<\s*string_view\s*>)";
+	header_string_view.version = CppVersion::Cpp17;
+	header_string_view.type = CppFeatureType::Header;
+	features.insert({ "string_view", header_string_view });
+
+	CppFeature header_variant;
+	header_variant.regex = R"(#\s*include\s*<\s*variant\s*>)";
+	header_variant.version = CppVersion::Cpp17;
+	header_variant.type = CppFeatureType::Header;
+	features.insert({ "variant", header_variant });
+
+	// core language features of C++17
+	CppFeature feature_structured_bindings;
+	feature_structured_bindings.regex = R"(\bauto[\s&]*\[.*\])";
+	feature_structured_bindings.version = CppVersion::Cpp17;
+	feature_structured_bindings.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "structured bindings", feature_structured_bindings });
 
 	return features;
 }
