@@ -4,13 +4,13 @@
 
 using namespace std;
 
-enum CppFeatureType {
+enum class CppFeatureType {
 	Header,
 	CoreLanguageFeature,
 	StandardLibrary
 };
 
-enum CppVersion {
+enum class CppVersion {
 	Cpp98,
 	Cpp11,
 	Cpp14,
