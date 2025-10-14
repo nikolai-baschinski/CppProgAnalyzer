@@ -240,16 +240,13 @@ void analisefileContent(string fileContent, map<string, CppFeature>& features)
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
-	feature = &features["attribute specifier sequence"];
+	feature = &features["attribute specifier sequences (noreturn, carries_dependency)"];
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
 	feature = &features["lambda"];
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
-	for (sregex_iterator it = begin; it != end; ++it) {
-		// wcout << it->str() << endl; // Debug
-		feature->cntr++;
-	}
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
 	feature = &features["noexcept"];
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
@@ -297,7 +294,7 @@ void analisefileContent(string fileContent, map<string, CppFeature>& features)
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
-	feature = &features["deprecated attribute"];
+	feature = &features["attribute specifier sequence (deprecated)"];
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
@@ -358,6 +355,21 @@ void analisefileContent(string fileContent, map<string, CppFeature>& features)
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 
+	feature = &features["if switch initializers"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["inline variable"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["constexpr lambda"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["attribute specifier sequences (fallthrough, maybe_unused, nodiscard)"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
 }
 
 int wmain(int argc, wchar_t* argv[])

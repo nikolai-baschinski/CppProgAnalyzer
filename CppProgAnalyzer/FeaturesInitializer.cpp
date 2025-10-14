@@ -220,7 +220,7 @@ map<string, CppFeature> createAllCppFeatures()
 	features.insert({ "scoped enums", scoped_enums });
 
 	CppFeature feature_constexpr;
-	feature_constexpr.regex = R"(constexpr)";
+	feature_constexpr.regex = R"(\bconstexpr\b)";
 	feature_constexpr.version = CppVersion::Cpp11;
 	feature_constexpr.type = CppFeatureType::CoreLanguageFeature;
 	features.insert({ "constexpr", feature_constexpr });
@@ -268,11 +268,11 @@ map<string, CppFeature> createAllCppFeatures()
 	string_literals.type = CppFeatureType::CoreLanguageFeature;
 	features.insert({ "string literals", string_literals });
 
-	CppFeature attribute_specifier_sequence;
-	attribute_specifier_sequence.regex = R"(\[\s*\[)";
-	attribute_specifier_sequence.version = CppVersion::Cpp11;
-	attribute_specifier_sequence.type = CppFeatureType::CoreLanguageFeature;
-	features.insert({ "attribute specifier sequence", attribute_specifier_sequence });
+	CppFeature feature_attribute_specifier_sequence_Cpp11;
+	feature_attribute_specifier_sequence_Cpp11.regex = R"((\[\s*\[\s*noreturn\s*\]\s*\])|(\[\s*\[\s*carries_dependency\s*\]\s*\]))";
+	feature_attribute_specifier_sequence_Cpp11.version = CppVersion::Cpp11;
+	feature_attribute_specifier_sequence_Cpp11.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "attribute specifier sequences (noreturn, carries_dependency)", feature_attribute_specifier_sequence_Cpp11 });
 
 	CppFeature feature_lambda;
 	feature_lambda.regex = R"([=,(]\s*\[\s*[\w\s&=,]*\]\s*\([^\)]*\)\s*(mutable\s*)?(->\s*[^ \{]+)?\s*\{)";
@@ -349,11 +349,11 @@ map<string, CppFeature> createAllCppFeatures()
 	feature_decltype_auto.type = CppFeatureType::CoreLanguageFeature;
 	features.insert({ "decltype(auto)", feature_decltype_auto });
 
-	CppFeature feature_deprecated_attribite;
-	feature_deprecated_attribite.regex = R"(\[\s*\[\s*deprecated.*\]\s*\])";
-	feature_deprecated_attribite.version = CppVersion::Cpp14;
-	feature_deprecated_attribite.type = CppFeatureType::CoreLanguageFeature;
-	features.insert({ "deprecated attribute", feature_deprecated_attribite });	
+	CppFeature feature_attribute_specifier_sequence_Cpp14;
+	feature_attribute_specifier_sequence_Cpp14.regex = R"(\[\s*\[\s*deprecated.*\]\s*\])";
+	feature_attribute_specifier_sequence_Cpp14.version = CppVersion::Cpp14;
+	feature_attribute_specifier_sequence_Cpp14.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "attribute specifier sequence (deprecated)", feature_attribute_specifier_sequence_Cpp14 });
 
 
 	// standard library features of C++14
@@ -444,6 +444,30 @@ map<string, CppFeature> createAllCppFeatures()
 	feature_structured_bindings.version = CppVersion::Cpp17;
 	feature_structured_bindings.type = CppFeatureType::CoreLanguageFeature;
 	features.insert({ "structured bindings", feature_structured_bindings });
+
+	CppFeature feature_if_switch_initializers;
+	feature_if_switch_initializers.regex = R"(\b(if|switch)\s*\(.*;.*\))";
+	feature_if_switch_initializers.version = CppVersion::Cpp17;
+	feature_if_switch_initializers.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "if switch initializers", feature_if_switch_initializers });
+
+	CppFeature feature_inline_variable;
+	feature_inline_variable.regex = R"(\binline\b[^();]*;)";
+	feature_inline_variable.version = CppVersion::Cpp17;
+	feature_inline_variable.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "inline variable", feature_inline_variable });
+
+	CppFeature feature_constexpr_lambda;
+	feature_constexpr_lambda.regex = R"(\bconstexpr.*[=,(]\s*\[\s*[\w\s&=,]*\]\s*\([^\)]*\)\s*(mutable\s*)?(->\s*[^ \{]+)?\s*\{)";
+	feature_constexpr_lambda.version = CppVersion::Cpp17;
+	feature_constexpr_lambda.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "constexpr lambda", feature_constexpr_lambda });
+
+	CppFeature feature_attribute_specifier_sequence_Cpp17;
+	feature_attribute_specifier_sequence_Cpp17.regex = R"((\[\s*\[\s*fallthrough\s*\]\s*\])|(\[\s*\[\s*maybe_unused\s*\]\s*\])|(\[\s*\[\s*nodiscard\s*\]\s*\]))";
+	feature_attribute_specifier_sequence_Cpp17.version = CppVersion::Cpp17;
+	feature_attribute_specifier_sequence_Cpp17.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "attribute specifier sequences (fallthrough, maybe_unused, nodiscard)", feature_attribute_specifier_sequence_Cpp17 });
 
 	return features;
 }
