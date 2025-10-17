@@ -370,6 +370,43 @@ void analisefileContent(string fileContent, map<string, CppFeature>& features)
 	feature = &features["attribute specifier sequences (fallthrough, maybe_unused, nodiscard)"];
 	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
 	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["char8_t"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["variadic using"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["byte"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["for_each_n"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["reduce"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["gcd_lcm"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["*_scan (numeric)"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["scoped_lock"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
+	feature = &features["std::size, std::empty, std::data"];
+	begin = sregex_iterator(fileContent.begin(), fileContent.end(), feature->regex);
+	for (sregex_iterator it = begin; it != end; ++it) feature->cntr++;
+
 }
 
 int wmain(int argc, wchar_t* argv[])

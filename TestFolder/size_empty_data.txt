@@ -1,0 +1,91 @@
+#include <cassert>
+#include <cstring>
+#include <iostream>
+#include <vector>
+ 
+int main()
+{
+    // Works with containers
+    std::vector<int> v{3, 1, 4};
+    assert(std::size(v) == 3);
+ 
+    // And works with built-in arrays too
+    int a[]{-5, 10, 15};
+    // Returns the number of elements (not bytes) as opposed to sizeof
+    assert(std::size(a) == 3);
+    std::cout << "size of a[]: " << sizeof a << '\n'; // 12, if sizeof(int) == 4
+ 
+    // Provides a safe way (compared to sizeof) of getting string buffer size
+    const char str[] = "12345";
+    // These are fine and give the correct result
+    assert(std::size(str) == 6);
+    assert(sizeof(str) == 6);
+ 
+    // But use of sizeof here is a common source of bugs
+    const char* str_decayed = "12345";
+    // std::cout << std::size(str_decayed) << '\n'; // Usefully fails to compile
+    std::cout << sizeof(str_decayed) << '\n'; // Prints the size of the pointer!
+ 
+    // Since C++20 the signed size (std::ssize) is available
+    auto i = std::ssize(v);
+    for (--i; i != -1; --i)
+        std::cout << v[i] << (i ? ' ' : '\n');
+    assert(i == -1);
+ 
+    // Note that the string literal includes the ending null character, which
+    // will be part of the constructed characters array. This makes std::size
+    // behave differently from std::strlen and std::string::size:
+    constexpr char symbols[] = "0123456789";
+ 
+    static_assert(std::size(symbols) == 11);
+    static_assert(std::string(symbols).size() == 10);
+    assert(std::strlen(symbols) == 10);
+}
+
+#include <iostream>
+#include <vector>
+ 
+template<class T>
+void print(const T& container)
+{
+    if (std::empty(container))
+        std::cout << "Empty\n";
+    else
+    {
+        std::cout << "Elements:";
+        for (const auto& element : container)
+            std::cout << ' ' << element;
+        std::cout << '\n';
+    }
+}
+ 
+int main()
+{
+    std::vector<int> c = {1, 2, 3};
+    print(c);
+    c.clear();
+    print(c);
+ 
+    int array[] = {4, 5, 6};
+    print(array);
+ 
+    auto il = {7, 8, 9};
+    print(il);
+}
+
+
+#include <cstring>
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    std::string s{"Hello world!\n"};
+ 
+    char a[20]; // storage for a C-style string
+    std::strcpy(a, std::data(s));
+//  [s.data(), s.data() + s.size()] is guaranteed to be an NTBS since C++11
+ 
+    std::cout << a;
+}
+

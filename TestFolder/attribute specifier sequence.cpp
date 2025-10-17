@@ -49,3 +49,6 @@ Standard attributes cannot be semantically ignored either: the behavior with all
 [[optimize_for_synchronized]]
 (TM TS)
 	indicates that the function definition should be optimized for invocation from a synchronized statement
+
+
+[[nodiscard, maybe_unused , fallthrough]]

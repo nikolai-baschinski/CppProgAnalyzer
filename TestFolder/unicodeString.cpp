@@ -23,4 +23,5 @@ int main(){
   const char16_t* uR16= uR"*(This is a "raw UTF-16" literal.)*";
   const char32_t* uR32= UR"(This is a "raw UTF-32" literal.)";
 
+  char8_t str[] = u8"ABC";
 }

@@ -269,7 +269,7 @@ map<string, CppFeature> createAllCppFeatures()
 	features.insert({ "string literals", string_literals });
 
 	CppFeature feature_attribute_specifier_sequence_Cpp11;
-	feature_attribute_specifier_sequence_Cpp11.regex = R"((\[\s*\[\s*noreturn\s*\]\s*\])|(\[\s*\[\s*carries_dependency\s*\]\s*\]))";
+	feature_attribute_specifier_sequence_Cpp11.regex = R"((\[\s*\[.*noreturn.*\]\s*\])|(\[\s*\[.*carries_dependency.*\]\s*\]))";
 	feature_attribute_specifier_sequence_Cpp11.version = CppVersion::Cpp11;
 	feature_attribute_specifier_sequence_Cpp11.type = CppFeatureType::CoreLanguageFeature;
 	features.insert({ "attribute specifier sequences (noreturn, carries_dependency)", feature_attribute_specifier_sequence_Cpp11 });
@@ -350,7 +350,7 @@ map<string, CppFeature> createAllCppFeatures()
 	features.insert({ "decltype(auto)", feature_decltype_auto });
 
 	CppFeature feature_attribute_specifier_sequence_Cpp14;
-	feature_attribute_specifier_sequence_Cpp14.regex = R"(\[\s*\[\s*deprecated.*\]\s*\])";
+	feature_attribute_specifier_sequence_Cpp14.regex = R"(\[\s*\[.*deprecated.*\]\s*\])";
 	feature_attribute_specifier_sequence_Cpp14.version = CppVersion::Cpp14;
 	feature_attribute_specifier_sequence_Cpp14.type = CppFeatureType::CoreLanguageFeature;
 	features.insert({ "attribute specifier sequence (deprecated)", feature_attribute_specifier_sequence_Cpp14 });
@@ -464,10 +464,64 @@ map<string, CppFeature> createAllCppFeatures()
 	features.insert({ "constexpr lambda", feature_constexpr_lambda });
 
 	CppFeature feature_attribute_specifier_sequence_Cpp17;
-	feature_attribute_specifier_sequence_Cpp17.regex = R"((\[\s*\[\s*fallthrough\s*\]\s*\])|(\[\s*\[\s*maybe_unused\s*\]\s*\])|(\[\s*\[\s*nodiscard\s*\]\s*\]))";
+	feature_attribute_specifier_sequence_Cpp17.regex = R"((\[\s*\[.*fallthrough.*\]\s*\])|(\[\s*\[.*maybe_unused.*\]\s*\])|(\[.*\[\s*nodiscard.*\]\s*\]))";
 	feature_attribute_specifier_sequence_Cpp17.version = CppVersion::Cpp17;
 	feature_attribute_specifier_sequence_Cpp17.type = CppFeatureType::CoreLanguageFeature;
 	features.insert({ "attribute specifier sequences (fallthrough, maybe_unused, nodiscard)", feature_attribute_specifier_sequence_Cpp17 });
+
+	CppFeature feature_char8_t;
+	feature_char8_t.regex = R"(\bchar8_t\b)";
+	feature_char8_t.version = CppVersion::Cpp17;
+	feature_char8_t.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "char8_t", feature_char8_t });
+
+	CppFeature feature_variadic_using;
+	feature_variadic_using.regex = R"(using.*\.\.\.)";
+	feature_variadic_using.version = CppVersion::Cpp17;
+	feature_variadic_using.type = CppFeatureType::CoreLanguageFeature;
+	features.insert({ "variadic using", feature_variadic_using });
+
+	CppFeature feature_std_byte;
+	feature_std_byte.regex = R"(\bstd::byte\b)";
+	feature_std_byte.version = CppVersion::Cpp17;
+	feature_std_byte.type = CppFeatureType::StandardLibrary;
+	features.insert({ "byte", feature_std_byte });
+
+	CppFeature feature_for_each_n;
+	feature_for_each_n.regex = R"(\bfor_each_n\b)";
+	feature_for_each_n.version = CppVersion::Cpp17;
+	feature_for_each_n.type = CppFeatureType::StandardLibrary;
+	features.insert({ "for_each_n", feature_for_each_n });
+
+	CppFeature feature_reduce;
+	feature_reduce.regex = R"(std::\w*reduce\b)";
+	feature_reduce.version = CppVersion::Cpp17;
+	feature_reduce.type = CppFeatureType::StandardLibrary;
+	features.insert({ "reduce", feature_reduce });
+
+	CppFeature feature_gcd_lcm;
+	feature_gcd_lcm.regex = R"((gcd\b)|(lcm\b))";
+	feature_gcd_lcm.version = CppVersion::Cpp17;
+	feature_gcd_lcm.type = CppFeatureType::StandardLibrary;
+	features.insert({ "gcd_lcm", feature_gcd_lcm });
+
+	CppFeature feature_scan;
+	feature_scan.regex = R"(std::\w+_scan\b)";
+	feature_scan.version = CppVersion::Cpp17;
+	feature_scan.type = CppFeatureType::StandardLibrary;
+	features.insert({ "*_scan (numeric)", feature_scan });
+
+	CppFeature feature_scoped_lock;
+	feature_scoped_lock.regex = R"(scoped_lock\b)";
+	feature_scoped_lock.version = CppVersion::Cpp17;
+	feature_scoped_lock.type = CppFeatureType::StandardLibrary;
+	features.insert({ "scoped_lock", feature_scoped_lock });
+
+	CppFeature feature_size_empty_data;
+	feature_size_empty_data.regex = R"((std::size)|(std::empty)|(std::data))";
+	feature_size_empty_data.version = CppVersion::Cpp17;
+	feature_size_empty_data.type = CppFeatureType::StandardLibrary;
+	features.insert({ "std::size, std::empty, std::data", feature_size_empty_data });
 
 	return features;
 }
