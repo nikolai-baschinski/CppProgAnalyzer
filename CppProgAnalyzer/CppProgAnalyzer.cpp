@@ -56,7 +56,7 @@ vector<wstring> findFilesInDirectory(wstring path)
 }
 
 
-void analisefileContent(string fileContent, map<string, CppFeature>& features)
+void analisefileContent(string& fileContent, map<string, CppFeature>& features)
 {
 	static bool comment_opened = false;
 	static string currentClassName;
@@ -481,7 +481,7 @@ int wmain(int argc, wchar_t* argv[])
 	wcout << L"The folder contains " << filesSource.size() << L" c/cpp/h files" << endl;
 
 	for (size_t i = 0; i < filesSource.size(); i++) {
-		string fileContent; // TODO
+		string fileContent;
 		ifstream myfile (filesSource.at(i));
 		
 		if (myfile.is_open()) {
