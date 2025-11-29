@@ -56,11 +56,8 @@ vector<wstring> findFilesInDirectory(wstring path)
 }
 
 
-void analisefileContent(string& fileContent, map<string, CppFeature>& features)
+void analyzeFileContent(string fileContent, map<string, CppFeature>& features)
 {
-	static bool comment_opened = false;
-	static string currentClassName;
-
 	regex commentPattern(R"(\/\/.*|\/\*[\s\S]*?\*\/)");
 
 	// remove all comments
@@ -481,7 +478,6 @@ int wmain(int argc, wchar_t* argv[])
 	wcout << L"The folder contains " << filesSource.size() << L" c/cpp/h files" << endl;
 
 	for (size_t i = 0; i < filesSource.size(); i++) {
-		string fileContent;
 		ifstream myfile (filesSource.at(i));
 		
 		if (myfile.is_open()) {
@@ -490,7 +486,7 @@ int wmain(int argc, wchar_t* argv[])
 
 			ostringstream buffer;
 			buffer << myfile.rdbuf();
-			analisefileContent(buffer.str(), features);
+			analyzeFileContent(buffer.str(), features);
 			
 			myfile.close();
 
